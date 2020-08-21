@@ -1,0 +1,7 @@
+{% extends "base.html.twig" %}
+{% block title 'nouveau logement' %}
+{% block body %}
+<div class="container mt-4">
+    <h1>creer le bien</h1>
+{{include('admin/_form.html.twig', {form:form, button :'Creer'}) }}
+{% endblock %}

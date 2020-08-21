@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+{% block title 'gerer les biens' %}
+{% block body %}
+
+		
+<div class="container mt-4 text-center">
+<h2>Gerer les options  <h2>
+
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+{{ message }}
+</div>
+{% endfor %}
+<table class="table table-striped table-inverse table-responsive">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Nom</th>
+            <th>Actions </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+     
+{% for option in optionss %}
+        <tr>
+                <td scope="row"> {{option.name}}</td>
+                <td>
+                  <a href="{{path('admin.option.edit',{id: option.id})}}" class="btn btn-secondary">Editer</a>
+                  <form action="{{path('admin.logement.delete',{id: option.id})}}"  style="display:inline-block" method="post" onsubmit="return confirm('etes vous vraiment sur?')">
+                  <input type="hidden" name="_method" value="DELETE">
+                   <input type="hidden" name="_token" value="{{csrf_token(option.id)}}">
+                  <button class="btn btn-danger" > Supprimer </button>
+                  </form>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+            </tr>
+{% endfor %}
+            
+        </tbody>
+</table>
+<div class="text-right">
+<a href="{{path('admin.option.new')}}" class="btn btn-secondary">Creer un nouveau logement</a>
+</div>
+</div>
+
+{% endblock %}

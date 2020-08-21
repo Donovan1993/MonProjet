@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+		
+<div class="container">
+<h2>Les derniers arrives de nos biens <h2>
+<div class = "row flex">
+{% for logement in logements %}
+<div class = "col-3">
+<div class = "card">
+<div class = "card-body">
+<h5 class = "card-title">
+<a href="{{ path('logement_show', {id: logement.id, slug: logement.slug}) }}" >{{logement.title}} </a>
+</h5>
+<p class="card-text">{{logement.city}} ({{logement.postalCode}}) </p>
+<div class = "text-primary" style="font-weight: bold; font-size: 2 rem;">{{logement.price}} €</div>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>		
+{% endblock %}

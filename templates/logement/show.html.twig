@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LogementController!{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+<div class="container mt-4">
+ <div class="row">
+ <div class="col-md-8">
+
+  </div>
+    <div class="col-md-4">
+    <h1>{{ logement.title }}</h1>
+    <h2>{{ logement.rooms }} pièces - {{ logement.surface }} m2 </h2>
+    <div class="text-primary" style="font-size: 4rem;font-weight: bold;">{{ logement.price }} € </div>
+    <a href="" class="btn btn-primary">Contacter l'agence </a>
+    </div>
+
+  </div>
+ </div>
+
+</div>
+ 
+ <p> 
+ {{ logement.description }} 
+ </p>
+<div class="row">
+<div class="col-md-8">
+<h2>Caracteristiques</h2>
+<table class="table table-striped">
+<tr>
+<td> Surface habitable</td>
+<td> {{logement.surface}} m2 </td>
+</tr>
+<tr>
+<td> Chambres</td>
+<td> {{logement.bedrooms}}</td>
+</tr>
+<tr>
+<td> Pieces</td>
+<td> {{logement.rooms}}</td>
+</tr>
+<tr>
+<td> Etages </td>
+<td> {{logement.floor}}</td>
+</tr>
+<tr>
+<td> Chauffages</td>
+<td> {{logement.heatType}}</td>
+</tr>
+</table>
+
+  </div>
+
+  </div>
+
+
+</div>
+<h2> Specificités </h2>
+{% endblock %}

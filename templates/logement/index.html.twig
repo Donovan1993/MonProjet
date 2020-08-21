@@ -1,0 +1,35 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des logements{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+    <div class="container">
+        {{ form_start(form) }}
+     <div class="form-row align-items-end">   
+     <div class="col">
+        {{ form_row(form.minSurface) }}
+         </div>
+         <div class="col">
+         {{ form_row(form.MaxPrice) }}
+          </div>
+           <div class="col">
+            <div class="form-group">
+           <button class="btn btn-primary">Rechercher </button>
+           </div> 
+            </div>
+             </div>
+        {{ form_end(form) }}
+    </div>
+    </div>
+    <h1 style="text-align: center;">Liste des bb logements</h1>
+    {% for logement in logements %}
+
+    <div class="col md-3">
+     {% include 'logement/_logement.html.twig' %}
+     </div>
+
+    {% endfor %}
+    {{ knp_pagination_render(logements) }}
+{% endblock %}
