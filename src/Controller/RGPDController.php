@@ -5,15 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FAQController extends AbstractController
+class RGPDController extends AbstractController
 {
     /**
-     * @Route("/f/a/q", name="f_a_q")
+     * @Route("/rgpd", name="rgpd_index")
      */
     public function index()
     {
-        return $this->render('faq/index.html.twig', [
-            'controller_name' => 'FAQController',
+        return $this->render('rgpd/index.html.twig', [
+            'controller_name' => 'RGPDController',
         ]);
     }
 }

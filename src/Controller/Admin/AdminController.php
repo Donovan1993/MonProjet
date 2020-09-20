@@ -3,15 +3,22 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Logement;
+use App\Entity\Users;
+use App\Form\EditUserType;
 use App\Form\LogementType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\LogementRepository;
-
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @IsGranted("ROLE_ADMIN")
+ * @Route("/admin", name="admin_")
+ */
 class AdminController extends AbstractController
 {
 
@@ -25,7 +32,8 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="admin.logement.index")
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/acces", name="logement_index")
      * @return Symfony\Component\HttpFoundation\Response
      */
     public function index(): Response
@@ -36,10 +44,12 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/logement", name="admin.logement.create")
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/logement", name="logement_create")
      */
     public function new(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $logement = new Logement();
         $form = $this->createForm(LogementType::class, $logement);
         $form->handleRequest($request);
@@ -58,7 +68,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/logement/{id}", name="admin.logement.edit", methods="GET|POST")
+     * @Route("/admin/logement/{id}", name="logement_edit", methods="GET|POST")
      * @param Logement $logement
      * @return Symfony\Component\HttpFoundation\Response
      */
@@ -69,10 +79,13 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($logement);
+            $entityManager->flush();
+
             $this->addFlash('success', 'bien modifié');
 
-            return $this->redirectToRoute('admin.logement.index');
+            return $this->redirectToRoute('admin_logement_index');
         }
 
         return $this->render('admin/edit.html.twig', [
@@ -83,7 +96,7 @@ class AdminController extends AbstractController
 
 
     /**
-     * @Route("/admin/logement/{id}", name="admin.logement.delete", methods="DELETE")
+     * @Route("/admin/logement/{id}", name="logement_delete", methods="DELETE")
      * @param Logement $logement
      * @return Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -96,5 +109,38 @@ class AdminController extends AbstractController
 
 
         return $this->redirectToRoute('admin.logement.index');
+    }
+
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/utilisateurs", name="utilisateurs")
+     */
+    public function usersList(UsersRepository $users)
+    {
+        return $this->render('admin/users.html.twig', [
+            'users' => $users->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateurs/modifier/{id}", name="modifier_utilisateur")
+     */
+    public function editUser(Users $user, Request $request)
+    {
+        $form = $this->createForm(EditUserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('message', 'Utilisateur modifié avec succès');
+            return $this->redirectToRoute('admin_utilisateurs');
+        }
+
+        return $this->render('admin/edituser.html.twig', [
+            'userForm' => $form->createView(),
+        ]);
     }
 }

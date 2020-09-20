@@ -50,7 +50,7 @@ class LogementRepository extends ServiceEntityRepository
     {
         return $this->findVisibleQuery()
             ->Where('l.sold = false')
-            ->setMaxResults(4)
+            ->setMaxResults(1)
             ->getQuery()
             ->getResult();
     }

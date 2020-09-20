@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\Logement;
 use App\Entity\LogementSearch;
+use App\Form\ContactType;
 use App\Form\LogementSearchType;
+use App\Notification\ContactNotification;
 use App\Repository\LogementRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,6 +15,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LogementController extends AbstractController
@@ -60,18 +64,52 @@ class LogementController extends AbstractController
      * @Route("/logement/{slug}-{id}", name="logement_show", requirements={"slug":"[a-z0-9\-]*"})
      * @return Response
      */
-    public function show(Logement $logement, string $slug): Response
+    public function show(Logement $logement, string $slug, Request $request, ContactNotification $notification, \Swift_Mailer $mailer): Response
     {
+
         if ($logement->getSlug() !== $slug) {
             return $this->redirectToRoute('logement_show', [
                 'id' => $logement->getId(),
                 'slug' => $logement->getSlug()
             ], 301);
         }
+        $contact = new Contact();
+        $contact->setLogement($logement);
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            echo "<h2> Votre message a été transmis, nous vous répondrons dans les meilleurs délais !</h2>";
+            $contact = $form->getData();
+
+            // On crée le message
+            $message = (new \Swift_Message('Nouveau contact'))
+                // On attribue l'expéditeur
+                ->setFrom('donovan.tchume@gmail.com')
+                // On attribue le destinataire
+                ->setTo('donovan.tchume@gmail.com')
+                // On crée le texte avec la vue
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig',
+                        compact('contact')
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            return $this->redirectToRoute('logement_show', [
+                'id' => $logement->getId(),
+                'slug' => $logement->getSlug()
+            ]);
+        }
+
 
         return $this->render('logement/show.html.twig', [
             'logement' => $logement,
-            'current_menu' => 'Logements'
+            'current_menu' => 'Logements',
+            'form' => $form->createView()
         ]);
     }
 }

@@ -4,12 +4,17 @@ namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File;
+use Symfony\Component\HttpFoundation\File\File as FileFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Logement
- *
- * @ORM\Table(name="logement")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass= "App\Repository\LogementRepository")
+ * @UniqueEntity("title")
+ * @Vich\Uploadable()
  */
 class Logement
 {
@@ -25,6 +30,18 @@ class Logement
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string",length=255)
+     */
+    private $filename;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="featured_image", fileNameProperty="filename")
+     */
+    private $imageFile;
 
     /**
      * @var string
@@ -123,6 +140,15 @@ class Logement
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $created_at;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updated_at;
+
+
+
 
     public function __construct()
     {
@@ -310,6 +336,61 @@ class Logement
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+
+
+    /**
+     * @param null|File $imageFile
+     * @return Logement
+     */
+    public function setImageFile(?FileFile $imageFile): Logement
+    {
+        $this->imageFile = $imageFile;
+        if ($imageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+
+    /**
+     * @return null|File 
+     */
+    public function getImageFile(): ?FileFile
+    {
+        return $this->imageFile;
+    }
+
+
+    /**
+     * @return null|string
+     */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param null|File $filename 
+     * @return Logement
+     */
+    public function setFilename(?string $filename): Logement
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }
