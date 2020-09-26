@@ -1,0 +1,23 @@
+easy_admin:
+  # On définit le nom de l'interface d'administration
+  site_name: "Gestion de mon blog"
+  # On définit l'affichage de l'utilisateur
+  user:
+    display_name: true
+    display_avatar: false
+  design:
+    # Ces lignes sont utiles pour CKEditor
+    form_theme:
+      - "@EasyAdmin/form/bootstrap_4.html.twig"
+      - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+    # Ces lignes définiront notre menu
+    menu:
+      - { label: "Articles" }
+      - { entity: "Articles", label: "Articles", icon: "book" }
+      - { entity: "Categories", label: "Catégories", icon: "tag" }
+      - { entity: "MotsCles", label: "Mots Clés", icon: "tag" }
+      - { label: "Utilisateurs" }
+      - { entity: "Users", label: "Utilisateurs", icon: "user" }
+  formats:
+    # Ici on définit le format des dates
+    datetime: "d/m/Y à H:i"
