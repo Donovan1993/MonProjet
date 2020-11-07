@@ -1,17 +1,32 @@
 {% extends "base.html.twig" %}
 {% block title 'gerer les biens' %}
+	{% block javascripts %}
+				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+				 
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+			 		   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+			{% endblock %}
 {% block body %}
-
 		
 <div class="container mt-4 text-center">
 <h2>Gerer les biens  <h2>
+
+<a href="{{path('admin_logement_create')}}" class="btn btn-secondary">Creer un nouveau logement</a>
+</div>
 
 {% for message in app.flashes('success') %}
 <div class="alert alert-success">
 {{ message }}
 </div>
 {% endfor %}
-<table class="table table-striped table-inverse table-responsive">
+
+<table class="container" >
     <thead class="thead-inverse">
         <tr>
             <th>Titre </th>
@@ -23,10 +38,10 @@
      
 {% for logement in logements %}
         <tr>
-                <td scope="row"> {{logement.title}}</td>
+                <td scope="row" class="list-group-item list-group-item-success"> {{logement.title}}</td>
                 <td>
-                  <a href="{{path('admin.logement.edit',{id: logement.id})}}" class="btn btn-secondary">Editer</a>
-                  <form action="{{path('admin.logement.delete',{id: logement.id})}}"  style="display:inline-block" method="post" onsubmit="return confirm('etes vous vraiment sur?')">
+                  <a href="{{ path('admin_logement_edit',{'id':logement.id}) }}" class="btn btn-secondary">Editer</a>
+                  <form action="{{ path('admin_logement_delete',{id: logement.id})}}"  style="display:inline-block" method="post" onsubmit="return confirm('etes vous vraiment sur?')">
                   <input type="hidden" name="_method" value="DELETE">
                    <input type="hidden" name="_token" value="{{csrf_token(logement.id)}}">
                   <button class="btn btn-danger" > Supprimer </button>
@@ -43,9 +58,8 @@
             
         </tbody>
 </table>
-<div class="text-right">
-<a href="{{path('admin.logement.create')}}" class="btn btn-secondary">Creer un nouveau logement</a>
 </div>
+
 </div>
 
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+ {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+<div class="hero-image" style="background-image: url('images/kingsize.jpeg');">
+  <div class="hero-text">
+  <br> 
+   <h1 class = "hs-line-10 font-alt mb-20 mb-xs-0" style="color:white;"> Inscription </h1>
+  </div>
+</div>
+<div class="container">
+{{form_start(form)}}
+
+    {{form_row(form.username)}}
+    {{form_row(form.email)}}
+    {{form_row(form.plainPassword.first)}}
+    {{form_row(form.plainPassword.second)}}
+  
+{{form_end(form)}}
+<p>Veuillez lire les <a href="{{ path('mentions_index') }}">mentions legales</a> et <a href="{{ path('rgpd_index') }}">RGPD</a> avant de continuer</p>
+</div>
+{% endblock %}

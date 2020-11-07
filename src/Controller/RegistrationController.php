@@ -16,15 +16,17 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/inscription", name="user_registration")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, \Swift_Mailer $mailer): Response
     {
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
+        //on gere la soumission la avec la methode post 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('message', 'Vous etes inscrits, a tout de suite');
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -34,11 +36,11 @@ class RegistrationController extends AbstractController
             );
             // On génère un token et on l'enregistre
             $user->setActivationToken(md5(uniqid()));
-
+            //on sauvegarde ke User
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
+            return $this->redirectToRoute('acceuil_index');
             // On crée le message
             $message = (new \Swift_Message('Nouveau contact'))
                 // On attribue l'expéditeur
@@ -63,9 +65,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        return $this->render('registration/index.html.twig', array('form' => $form->createView()));
     }
 
     /**

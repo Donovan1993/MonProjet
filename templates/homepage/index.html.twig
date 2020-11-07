@@ -1,24 +1,643 @@
 {% extends "base.html.twig" %}
-
+{% block title %} 🏡MOGO {% endblock %}
 {% block body %}
-
-		
-<div class="container">
-<h2>Les derniers arrives de nos biens <h2>
-<div class = "row flex">
+{% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% for logement in logements %}
-<div class = "col-3">
-<div class = "card">
-<div class = "card-body">
-<h5 class = "card-title">
-<a href="{{ path('logement_show', {id: logement.id, slug: logement.slug}) }}" >{{logement.title}} </a>
-</h5>
-<p class="card-text">{{logement.city}} ({{logement.postalCode}}) </p>
-<div class = "text-primary" style="font-weight: bold; font-size: 2 rem;">{{logement.price}} €</div>
+<div class="container">
+<a href="{{ path('logement_show', {id: logement.id, slug: logement.slug}) }}" style="color:white;" ><h1 class="ml15">
+  <span class="typo"> ⚡️ L'OFFRE</span>
+  <span class="typo">FLASH ⚡️</span>
+</h1></a>
 </div>
+
+
+
+<div id="demo" class="carousel slide" data-ride="carousel">
+  
+  </ul>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="images/salon_large.jpg" alt="carousel" width="1100" height="500">
+      <div class="carousel-caption ">
+       <h4>  <strong><a href="{{ path('logement_show', {id: logement.id, slug: logement.slug}) }}" style="color:white;font-weight:bold;" >{{logement.title}} </a>  </strong> </h4>
+        <p>{{logement.price}} €</p>
+        <p class="card-text">{{logement.city}} ({{logement.postalCode}}) </p>
+      </div>   
+    </div>
+    <div class="carousel-item">
+      <img src="images/interieur_large.jpg" alt="Chicago" width="1100" height="500">
+      <div class="carousel-caption ">
+        <h4>  <strong><a href="{{ path('logement_show', {id: logement.id, slug: logement.slug}) }}" style="color:white;" >{{logement.title}} </a>  </strong> </h4>
+        <p>{{logement.price}} €</p>
+         <p class="card-text">{{logement.city}} ({{logement.postalCode}}) </p>
+      </div>   
+    </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
 </div>
-</div>
+
 {% endfor %}
+<div class="container" >
+<h2 class="typo">
+   Nos trouvailles
+  du moment  
+</h2>
+<em><p>Voici nos derniers bijoux selectionnés pour vous!</p></em>
 </div>
-</div>		
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
+<div class="container">
+   
+	<div class="row">
+		<!-- Swiper -->
+  <div class="swiper-container">
+<div class="swiper-wrapper">
+      <div class="swiper-slide">
+          <div class="row">
+          {% for logement in nouveautes %}
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="images/blanc_logement.jpg"></div>
+                                <div class="card-body">
+                         <strong> <h4><a href="{{ path('logement_show', {id: logement.id, slug: logement.slug}) }}" style="color:#2f435e;" >{{logement.title}} </a></h4>  </strong>
+           <p class="card-text">{{logement.city}} ({{logement.postalCode}}) </p>
+          <h6 class="card-subtitle">{{logement.price}} €</h6>
+                                </div>
+                                   <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  {{logement.bedrooms}} chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i>  {{logement.surface}} m² </span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i>  {{logement.floor}} etages </span>
+          </figure>
+                            </div>
+                        </div>
+                       
+                      
+                        {% endfor %}
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="images/salon_affi.jpg"></div>
+                                <div class="card-body">
+                                 <h4 class="card-title"  ><a href="{{ path('logement_index') }}" style="color:#2f435e;">Jolie F2 : Plein coeur </a></h4>
+                                   <h4 class="pt-1 pb-2">Paris 75001</h4>
+           <h6 class="card-subtitle">900 €</h6>
+                                                                             <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m² </span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+            <br>
+          </figure>
+         
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      </div>
+      <div class="swiper-slide">
+          <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://images.pexels.com/photos/3990588/pexels-photo-3990588.jpeg"></div>
+                                <div class="card-body">
+                                   <h4 class="card-title" ><a href="{{ path('logement_index') }}" style="color:#2f435e;">Duplex vue sur Montmarte </a></h4>
+                                   <h4 class="card-title">Paris 75009</h4>
+                                   
+                                                         <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m² </span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+            <br>
+             <span><i class="fa fa-tint" aria-hidden="true"></i> 850 € </span>
+          </figure>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://images.pexels.com/photos/3990588/pexels-photo-3990588.jpeg"></div>
+                                <div class="card-body">
+                                <h4 class="card-title" ><a href="{{ path('logement_index') }}" style="color:#2f435e;"> Duplex Creteil </a></h4>
+                                   <h4 class="pt-1 pb-2">Paris 75013</h4>
+                                                                             <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m²</span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+                        <br>
+             <span><i class="fa fa-tint" aria-hidden="true"></i> 1400 € </span>
+          </figure>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://images.pexels.com/photos/3990588/pexels-photo-3990588.jpeg"></div>
+                                <div class="card-body">
+                                  <h4 class="card-title"><a href="{{ path('logement_index') }}" style="color:#2f435e;">Pavillon Chatelet </a></h4>
+                                   <h4 class="pt-1 pb-2">75001 PARIS</h4>
+                                                                             <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m²</span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+                        <br>
+             <span><i class="fa fa-tint" aria-hidden="true"></i> 840 € </span>
+          </figure>
+                                 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://images.pexels.com/photos/3990588/pexels-photo-3990588.jpeg"></div>
+                                <div class="card-body">
+                                   <h4 class="card-title" ><a href="{{ path('logement_index') }}" style="color:#2f435e;">STUDIO MONTMARTE </a></h4>
+                                   <h4 class="pt-1 pb-2">75009 PARIS</h4>
+                                                                             <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m²</span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+                        <br>
+             <span><i class="fa fa-tint" aria-hidden="true"></i> 940 € </span>
+          </figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      </div>
+      <div class="swiper-slide">
+          <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://images.pexels.com/photos/3990600/pexels-photo-3990600.jpeg"></div>
+                                <div class="card-body">
+                                  <h4 class="card-title" ><a href="{{ path('logement_index') }}" style="color:#2f435e;"> Creteil F4</a></h4>
+                                   <h4 class="pt-1 pb-2">94000 CRETEIL</h4>
+                                                                             <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m²</span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+                        <br>
+             <span><i class="fa fa-tint" aria-hidden="true"></i> 450 € </span>
+          </figure>
+                              
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://images.pexels.com/photos/3990600/pexels-photo-3990600.jpeg"></div>
+                                <div class="card-body">
+                                   <h4 class="card-title" ><a href="{{ path('logement_index') }}" style="color:#2f435e;">Puteau F5 </a></h4>
+                                   <h4 class="pt-1 pb-2">75009 PARIS</h4>
+                                                                             <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m²</span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+                        <br>
+             <span><i class="fa fa-tint" aria-hidden="true"></i> 40000 € </span>
+          </figure>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://images.pexels.com/photos/3990600/pexels-photo-3990600.jpeg"></div>
+                                <div class="card-body">
+                                <h4 class="card-title" ><a href="{{ path('logement_index') }}" style="color:#2f435e;">Cachan F2</a></h4>
+                                   <h4 class="pt-1 pb-2">75009 PARIS</h4>
+                                                                             <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m²</span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+                        <br>
+             <span><i class="fa fa-tint" aria-hidden="true"></i> 40000 € </span>
+          </figure>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://images.pexels.com/photos/3990600/pexels-photo-3990600.jpeg"></div>
+                                <div class="card-body">
+                                 <h4 class="card-title" ><a href="{{ path('logement_index') }}" style="color:#2f435e;">Colombes F3 </a></h4>
+                                   <h4 class="pt-1 pb-2">75009 PARIS</h4>
+                                                                             <figure class="description">
+            <span><i class="fa fa-bed" aria-hidden="true"></i>  5 chambres </span>
+            <br>
+            <span><i class="fa fa-tree" aria-hidden="true"></i> 45 m²</span>
+             <br>
+            <span><i class="fa fa-tint" aria-hidden="true"></i> 9 etages </span>
+                        <br>
+             <span><i class="fa fa-tint" aria-hidden="true"></i> 40000 € </span>
+          </figure>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+<div class="swiper-button-prev"></div>
+  </div>
+
+	</div>
+</div>
+<div class="hero-image" style="background-image: url('images/equipemogo.png');">
+  <div class="hero-text">
+
+    <button class="buttonlow"><a href="{{ path('contact_index') }}">Nous contacter</a></button>
+  </div>
+</div>
+
+<div class="container p-3 my-3 border">
+Parce que votre <a href="{{ path('contact_index') }}" style="font-weight: bold;">projet immobilier </a>ne se limite pas uniquement à un nombre restreint de possibilité, nous avons créé une <strong>large gamme de services </strong> afin de vous accompagner au mieux en amont, en aval ou en parallèle de votre projet.
+ <br><strong>Soucieux de votre avenir à long terme, l'agence MOGO</strong> mettra à votre disposition une équipe de <a href="{{ path('contact_index') }}" style="font-weight: bold;">spécialite en decoration d'interieur </a> qui seront heureux de vous <strong>seconder de manière spécialisée.</strong><br>
+À travers une offre et des services personnalisés, <strong>MOGO</strong> accompagne ses clients de manière globale dans la gestion de l'appartement et de sa communauté de resident par des fetes et des evenements. <br>Notre équipe est en mesure de répondre à tous vos projets!
+<strong>MOGO</strong> est dédié à l’immobilier en Ile-de-France.
+</div>
+
+	<section id="how-we-do" class="p-0">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 how-bg-img"></div>
+				<div class="col-xs-12 col-sm-12 col-md-6 how-contents">
+					<h2 class="typo" style="color:#2f435e;">Qui sommes nous ?</h2>
+					<p class="mb-4 text-center">Expert en <a href="{{ path('contact_index') }}" style="font-weight: bold;">recherche d'appartement sur l'Ile-de-France </a>, nous customisons les logements selectionnes à partir du <a href="{{ path('logement_index') }}" style="font-weight: bold;">F2 pour couples et famille. </a></p>
+        
+
+  <div class="container" style="text-align:center;">
+   <li class="list-group-item list-group-item-primary">Une chasse aux <strong>meilleur biens immobiliers</strong></li>
+  <li class="list-group-item list-group-item-secondary">Un filtrage selon vos envies et attentes</li>
+  <li class="list-group-item list-group-item-success">La mise en place de la <strong>decoration interieur </strong>de votre bien</li>
+  <li class="list-group-item list-group-item-danger">Avec nous, zero papier: venez juste avec vos cartons !</li>
+  <li class="list-group-item list-group-item-warning">La negociation a des prix defiants toute concurrence</li>
+  <li class="list-group-item list-group-item-info">On creer des evenements entre locataire MOGO : nous sommes une famille !</li>
+  <li class="list-group-item list-group-item-light">Des relooking sur mesure de votre bien</li>
+  <li class="list-group-item list-group-item-dark">Vous rendre heureux.... C'est dejà beaucoup! ❤️ </li>
+  </div>			
+				</div>
+			</div>
+		</div>
+	</section>
+
+<section id="features-section" class="text-center" >
+                <div class="container" >
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="typo">NOS AVANTAGES</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="text-block" style="color:black;">
+                                <img src="images/logements/horloges.jpg">
+                                <h4><strong>Rapidité</strong></h4>
+                                <p>En plus d'être rapide, nos réponses de service sont correctes. Nos clients considèrent l'exactitude de nos <strong> services comme perfomant</strong>. </p>
+                            </div>
+                            <div class="text-block" style="color:black;">
+                                <img src="images/logements/fiable.jpg">
+                                <h4><strong>Fiabilité</strong></h4>
+                                <p>La Fiabilité est notre mot d'ordre, une confiance et une transparence pour mieux vous accompagner.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="text-block" style="color:black;"> 
+                                <img src="images/logements/eco.jpg">
+                                <h4><strong>Ecologique</strong></h4>
+                                <p>Le <strong> respect des normes écologiques et thermiques </strong> qui visent à réduire la consommation en énergie: c'est le projet marquant du <strong> début des années 2000</strong></p>
+                            </div>
+                            <div class="text-block" style="color:black;"> 
+                                <img src="images/logements/prix.jpg">
+                                <h4><strong>Meilleur Prix</strong></h4>
+                                <p>Nous vous proposons les meilleur prix, en fonctions de vos attentes et de notre catalogue.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="text-block" style="color:black;"> 
+                                <img src="images/logements/commune.jpg">
+                                <h4><strong>Une Communauté</strong></h4>
+                                <p>La meilleure solution du moment est de louer un appartement dans une <strong> “communauté immobilière“</strong> . Cela permet en effet de s’engager sur du long terme, et de se sentir à l'aise.</p>
+                            </div>
+                            <div class="text-block" style="color:black;"> 
+                                <img src="images/logements/lolo.jpg">
+                                <h4><strong>Assistance 7/7</strong></h4>
+                                <p>Une assistance disponible et qui s’occupe de toutes les tâches administratives.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+    
+   
+
+    <img src="images/article2.png">
+<svg id="sprite-rating" xmlns="https://www.w3.org/2000/svg">
+    
+      <style>
+        .rating__star--25 {
+          fill: url(#sprite-rating-25p);
+        }
+
+        .rating__star--50 {
+          fill: url(#sprite-rating-50p);
+        }
+
+        .rating__star--75 {
+          fill: url(#sprite-rating-75p);
+        }
+
+        .rating__star--100 {
+          fill: #FFB434;
+        }
+
+      </style>
+    
+      <defs>
+        
+        <linearGradient id="sprite-rating-25p">
+          <stop offset="25%" stop-color="#FFB434"></stop>
+          <stop offset="25.1%" stop-color="transparent" stop-opacity="0"></stop>
+        </linearGradient>
+        <linearGradient id="sprite-rating-50p">
+          <stop offset="50%" stop-color="#FFB434"></stop>
+          <stop offset="50.1%" stop-color="transparent" stop-opacity="0"></stop>
+        </linearGradient>
+        <linearGradient id="sprite-rating-75p">
+          <stop offset="75%" stop-color="#FFB434"></stop>
+          <stop offset="75.1%" stop-color="transparent" stop-opacity="0"></stop>
+        </linearGradient>
+        
+        <symbol id="rating-star" viewBox="0 0 51 48">
+          <path d="M25 1l6 17h18L35 29l5 17-15-10-15 10 5-17L1 18h18z" stroke="#FFB434" stroke-width="2"></path>
+        </symbol>
+        
+      </defs>
+    
+    </svg>
+
+
+
+
+
+<div class="c-avisnps-push">
+  
+    <div class="rating-wrapper--push rating-wrapper--push__light" itemprop="aggregateRating" itemscope="" itemtype="https://schema.org/AggregateRating">Note de satisfaction globale
+
+      <div class="rating rating--inline rating--large">
+        
+        <svg class="rating__star rating__star--100">
+          <use xmlns:xlink="https://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
+        </svg>
+        <svg class="rating__star rating__star--100">
+          <use xmlns:xlink="https://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
+        </svg>
+        <svg class="rating__star rating__star--100">
+          <use xmlns:xlink="https://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
+        </svg>
+        <svg class="rating__star rating__star--100">
+          <use xmlns:xlink="https://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
+        </svg>
+        <svg class="rating__star rating__star--50">
+          <use xmlns:xlink="https://www.w3.org/1999/xlink" xlink:href="#rating-star"></use>
+        </svg>
+        
+      </div>
+      
+      <span class="rating__note"><span itemprop="ratingValue">4,4</span> / 5</span> sur <span itemprop="reviewCount">894</span> avis clients
+      
+    </div>
+</div>
+
+<!-- Team -->
+<section id="team" class="pb-5" >
+      <h2 class="typo" >L'EQUIPE A VOTRE SERVICE</h2>
+    <div class="container" style="background-color:#2f435e">
+  
+        <div class="row">
+            <!-- Team member -->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="image-flip" >
+                    <div class="mainflip flip-0">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="images/staffnia.jpg" alt="card image"></p>
+                                    <h4 class="card-title">Relation Client</h4>
+                                    <h2 style="color:black;">DONOVAN AIKO</h2>
+ 
+                                   </div>
+                          <ol class="social">
+                                  <ul class="facebook"><a href="https://facebook.com/alterowo"><i class="fa fa-facebook fa-3x"></i></a></ul>
+                                  <ul class="twitter"><a href="https://twitter.com/Kyokushinowa"><i class="fa fa-twitter fa-3x"></i></a></ul>
+                            
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">Relation Client</h4>
+                                       <p class="card-text">j’ai beaucoup voyagé que ce soit en famille ou entre amis, ce qui je pense m’a donné ce goût de l’aventure et des découvertes qui ont revelé ma passion pour la decoration d'interieur. <br> Mon objectif : transformer n’importe quel intérieur en home happy home.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="images/kimstaff.png" alt="card image"></p>
+                                    <h4 class="card-title">Fondatrice</h4>  
+                               <h2 style="color:black;">EUGENIE EHIUNOU</h2>       
+                          </div>
+                           <ol class="social">
+                                  <ul class="facebook"><a href="https://facebook.com/alterowo"><i class="fa fa-facebook fa-3x"></i></a></ul>
+                                  <ul class="twitter"><a href="https://twitter.com/Kyokushinowa"><i class="fa fa-twitter fa-3x"></i></a></ul>
+                            
+                                </ol>
+                                </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">Fondatrice</h4>
+                                       <p class="card-text">j’ai beaucoup voyagé que ce soit en famille ou entre amis, ce qui je pense m’a donné ce goût de l’aventure et des découvertes qui ont revelé ma passion pour la decoration d'interieur. <br> Mon objectif : transformer n’importe quel intérieur en home happy home.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="images/ninostaff.jpg" alt="card image"></p>
+                                    <h4 class="card-title">Decorateur d'Interieur</h4>
+                                    <h2 style="color:black;">NINO MENDEZ </h2>
+                                </div>
+                                 <ol class="social">
+                                  <ul class="facebook"><a href="https://facebook.com/alterowo"><i class="fa fa-facebook fa-3x"></i></a></ul>
+                                  <ul class="twitter"><a href="https://twitter.com/Kyokushinowa"><i class="fa fa-twitter fa-3x"></i></a></ul>
+                            
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">Decorateur d'Interieur</h4>
+                                    <p class="card-text">j’ai beaucoup voyagé que ce soit en famille ou entre amis, ce qui je pense m’a donné ce goût de l’aventure et des découvertes qui ont revelé ma passion pour la decoration d'interieur. <br> Mon objectif : transformer n’importe quel intérieur en home happy home.</p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_04.jpg" alt="card image"></p>
+                                    <h4 class="card-title">Chasseur d'appart</h4>
+                                    <h2 style="color:black;">DONO TERIT</h2>
+                                </div>
+                                 <ol class="social">
+                                  <ul class="facebook"><a href="https://facebook.com/alterowo"><i class="fa fa-facebook fa-3x"></i></a></ul>
+                                  <ul class="twitter"><a href="https://twitter.com/Kyokushinowa"><i class="fa fa-twitter fa-3x"></i></a></ul>
+                            
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">Chasseur d'appart</h4>
+   <p class="card-text">j’ai beaucoup voyagé que ce soit en famille ou entre amis, ce qui je pense m’a donné ce goût de l’aventure et des découvertes qui ont revelé ma passion pour la decoration d'interieur. <br> Mon objectif : transformer n’importe quel intérieur en home happy home.</p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_05.png" alt="card image"></p>
+                                    <h4 class="card-title">Decoratrice d'Interieur</h4>
+                                    <h2 style="color:black;">MARC LAPINCE</h2>
+                                </div>
+                                 <ol class="social">
+                                  <ul class="facebook"><a href="https://facebook.com/alterowo"><i class="fa fa-facebook fa-3x"></i></a></ul>
+                                  <ul class="twitter"><a href="https://twitter.com/Kyokushinowa"><i class="fa fa-twitter fa-3x"></i></a></ul>
+                            
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">Decoratrice d'Interieur</h4>
+   <p class="card-text">j’ai beaucoup voyagé que ce soit en famille ou entre amis, ce qui je pense m’a donné ce goût de l’aventure et des découvertes qui ont revelé ma passion pour la decoration d'interieur. <br> Mon objectif : transformer n’importe quel intérieur en home happy home.</p>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="images/ollostaff.jpg" alt="card image"></p>
+                                    <h4 class="card-title">Agent Immobilier</h4>
+                                    <h2 style="color:black;">CHAARIS BLO</h2>
+                                </div>
+                                 <ol class="social">
+                                  <ul class="facebook"><a href="https://facebook.com/alterowo"><i class="fa fa-facebook fa-3x"></i></a></ul>
+                                  <ul class="twitter"><a href="https://twitter.com/Kyokushinowa"><i class="fa fa-twitter fa-3x"></i></a></ul>
+                            
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">Agent Immobilier</h4>
+   <p class="card-text">j’ai beaucoup voyagé que ce soit en famille ou entre amis, ce qui je pense m’a donné ce goût de l’aventure et des découvertes qui ont revelé ma passion pour la decoration d'interieur. <br> Mon objectif : transformer n’importe quel intérieur en home happy home.</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Team member -->
+
+        </div>
+    </div>
+</section>
+
+    
 {% endblock %}

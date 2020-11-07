@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use App\Form\ResetPassType;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,31 +16,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/connexion", name="app_login")
-     */
-    /* public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/index.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-    }
-
-    /**
-     * @Route("/logout", name="app_logout")
-     */
-    /*public function logout()
-    {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-    }*/
-
 
     /**
      * @Route("/oubli-pass", name="app_forgotten_password")
@@ -91,7 +67,7 @@ class SecurityController extends AbstractController
                 ->setFrom('donovan.tchume@gmail.com')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le site Nouvelle-Techno.fr. Veuillez cliquer sur le lien suivant : " . $url,
+                    "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le site mogo.fr. Veuillez cliquer sur le lien suivant : " . $url,
                     'text/html'
                 );
 

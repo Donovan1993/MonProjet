@@ -40,17 +40,17 @@ class LogementController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator) // Nous ajoutons les paramètres requis
     {
-        //permet de creer entité pour faire les recherches filtres
+        //cree une entité pour faire les recherches filtres
         $search = new LogementSearch();
         $form = $this->createForm(LogementSearchType::class, $search);
         $form->handleRequest($request);
 
-        // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
+        // Méthode findBy permet récupérer données aveccritères de filtre +  tri
         $donnees = $this->getDoctrine()->getRepository(Logement::class)->findBy([], ['created_at' => 'desc']);
         $logements = $paginator->paginate(
             $this->repository->findAllVisible($search),
-            //$donnees, // Requête contenant les données à paginer (ici nos articles)
-            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            //$donnees, // Requête contenant les données 
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL
             4 // Nombre de résultats par page
         );
         return $this->render('logement/index.html.twig', [
@@ -79,7 +79,7 @@ class LogementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            echo "<h2> Votre message a été transmis, nous vous répondrons dans les meilleurs délais !</h2>";
+            $this->addFlash('message', 'Votre message a été transmis, nous vous répondrons dans les meilleurs délais.'); // Permet un message flash de renvoi
             $contact = $form->getData();
 
             // On crée le message
@@ -104,7 +104,6 @@ class LogementController extends AbstractController
                 'slug' => $logement->getSlug()
             ]);
         }
-
 
         return $this->render('logement/show.html.twig', [
             'logement' => $logement,

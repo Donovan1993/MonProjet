@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MOGO: {{ article.titre }}{% endblock %}
+
+	{% block javascripts %}
+				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+				 <script src="js/styles.js"></script>
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+			 		   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+			{% endblock %}
+
+{% block body %}
+
+        <div class="container">
+    <h2 class="typo">{{ article.titre }}</h2>
+    <p class="typo list-group-item list-group-item-primary">{{ article.createdAt|date }} - Commentaires : {{ commentaires|length }}</p>
+    
+   <img src="/images/fetevoisins.png " alt="FETEVOISINS">
+   <h2 class="typo list-group-item list-group-item-primary">ARTICLE:</h2>
+    <li class="list-group-item list-group-item"><p class="container">{{ article.contenu}}</p></li>
+    </div>
+<div class="container">
+    <p>Catégories : 
+        {% for categorie in article.categories %}
+            {{ categorie.nom }} 
+        {% endfor %}
+    </p>
+
+    <h2 class="typo list-group-item list-group-item-primary">{% trans %}Commentaires:{% endtrans %}</h2></div>
+    <div class="container" style="color:black;">
+    {% for commentaire in commentaires %}
+        
+        <li class="list-group-item list-group-item-warning">Publié par {{ commentaire.pseudo }} le {{ commentaire.createdAt|date }}</li>
+        <li class="list-group-item list-group-item-success"> {{ commentaire.contenu }}</li>
+    {% else %}
+        <p>{% trans %}Pas encore de commentaire{% endtrans %}</p>
+    {% endfor %}
+    <h2>{% trans %}Laisse ton commentaire!👇🏻{% endtrans %}</h2>
+     {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {{ form(form) }}
+</div>
+{% endblock %}

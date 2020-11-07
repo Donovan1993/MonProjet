@@ -1,18 +1,31 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des logements{% endblock %}
+{% block title %}🏡MOGO : Liste des logements{% endblock %}
 
 {% block body %}
-    <div class="jumbotron">
+
+<div class="container">
+<h2 class="typo">
+ Logements De l'Agence 🏘   
+</h2>
+     <div class="container">
+<div class="list-group-item list-group-item"><h3>Selon votre situation, la location est peut-être <strong>la formule la plus adaptée à vos besoins.</strong><br>  <strong> Louer c'est profiter  </strong> d'un bien en assumant
+  une part moindre de son entretient et des contraintes administratives qui y sont liées.<br> Encore faut-il être sûr que le suivi soit assuré.
+ <strong> En passant par notre agence, </strong>vous vous assurez un <a href="{{ path('contact_index') }}" style="font-weight: bold;">suivi de qualité </a>, nos professionnels se chargeront des relations avec le propriétaire
+dans l'intérêt de tous. <strong>N'attendez plus et découvrez nos biens à la location !</strong></h3> <br>
+<button class="buttonlow"><a href="{{ path('contact_index') }}">Nous contacter</a></button> 
+</div>
+</div>
+ <div class="jumbotron" >
     <div class="container">
         {{ form_start(form) }}
-     <div class="form-row align-items-end">   
+     <div class="form-row align-items-end" >   
      <div class="col">
         {{ form_row(form.minSurface) }}
          </div>
          <div class="col">
-         {{ form_row(form.MaxPrice) }}
+         {{ form_row(form.MaxPrice)}} 
           </div>
            <div class="col">
             <div class="form-group">
@@ -23,13 +36,24 @@
         {{ form_end(form) }}
     </div>
     </div>
-    <h1 style="text-align: center;">Liste des bb logements</h1>
+      </div>
+
+</div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
+
     {% for logement in logements %}
 
-    <div class="col md-3">
+    <div class="container">
      {% include 'logement/_logement.html.twig' %}
      </div>
 
     {% endfor %}
+       <div class="container">
     {{ knp_pagination_render(logements) }}
+    </div>
+
 {% endblock %}

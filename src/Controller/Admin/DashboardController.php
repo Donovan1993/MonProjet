@@ -28,21 +28,23 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('MOGO4');
+            ->setTitle('MOGO');
     }
 
     public function configureMenuItems(): iterable
     {
         return [
-            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::linkToDashboard('Tableau de Bord', 'fa fa-home'),
 
-            MenuItem::section('Logement'),
+            MenuItem::section('LOGEMENT'),
             MenuItem::linkToCrud('Logement', 'fa fa-tags', Logement::class),
+            MenuItem::section('ARTICLES'),
             MenuItem::linkToCrud('Articles', 'fa fa-file-text', Articles::class),
-
-            MenuItem::section('Users'),
             MenuItem::linkToCrud('Commentaires', 'fa fa-comment', Commentaires::class),
+            MenuItem::section('UTILISATEURS'),
             MenuItem::linkToCrud('Users', 'fa fa-user', Users::class),
+
+
         ];
     }
 }

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Page non trouvée</h1>
+    <p>La page que vous cherchez n'a pas été trouvée</p>
+ 
+    <p>Retourner à la page d'accueil en cliquant ici : <a href="{{ path('acceuil_index') }}"> retour </a></p>
+    </div>
+{% endblock %}

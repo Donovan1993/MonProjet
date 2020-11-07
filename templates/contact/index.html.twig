@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}🏡MOGO : Contact{% endblock %}
+
+{% block body %}
+<div class="hero-image" style="background-image: url('images/contact.png');">
+  <div class="hero-text">
+  <br> 
+   <h1 class = "typo" style="color:white;"> Contact</h1>
+  </div>
+</div>
+
+ {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+{{form_start(form)}}
+
+<div class="container">
+<div class="row">
+
+<div class="col">{{form_start(form.Nom)}}</div>
+</div>
+<div class="row">
+<div class="col">{{form_start(form.Email)}}</div>
+<div class="col">{{form_start(form.Telephone)}}</div>
+</div>
+
+{{form_rest(form)}}
+{{form_end(form)}}
+</div>
+</div>
+</form>
+{% endblock %}

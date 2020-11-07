@@ -3,7 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Articles;
+use App\Entity\ArticlesSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,7 +23,20 @@ class ArticlesRepository extends ServiceEntityRepository
         parent::__construct($registry, Articles::class);
     }
 
+    /**
+     * @return Query
+     */
+    public function findAllVisible(ArticlesSearch $search): Query
+    {
+        $query = $this->findVisibleQuery();
 
+        if ($search->getMinPublished()) {
+            $query = $query
+                ->andwhere('l.published <= :maxpublished')
+                ->setParameter('maxpublished', $search->getMinPublished());
+        }
+        return $query->getQuery();
+    }
 
     // /**
     //  * @return Articles[] Returns an array of Articles objects

@@ -18,6 +18,13 @@ class LogementSearch
      */
     private $minSurface;
 
+
+    /**
+     * @var int|null 
+     * @Assert\Range(min=0, max=9900)
+     */
+    private $zipcode;
+
     /**
      * @return int|null 
      */
@@ -53,6 +60,25 @@ class LogementSearch
     public function setMinSurface(int $minSurface): LogementSearch
     {
         $this->minSurface = $minSurface;
+        return $this;
+    }
+
+    /**
+     * @return int|null 
+     */
+    public function getZipCode(): ?int
+    {
+        return $this->zipcode;
+    }
+
+
+    /**
+     * @var int|null $zipcode
+     * @return LogementSearch
+     */
+    public function setZipCode(int $zipcode): LogementSearch
+    {
+        $this->zipcode = $zipcode;
         return $this;
     }
 }

@@ -19,13 +19,13 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            echo "<h2> Votre message a été transmis, nous vous répondrons dans les meilleurs délais !</h2>";
+            $this->addFlash('message', 'Votre message a été transmis, nous vous répondrons dans les meilleurs délais.'); // Permet un me
             $contact = $form->getData();
 
             // On crée le message
             $message = (new \Swift_Message('Nouveau contact'))
                 // On attribue l'expéditeur
-                ->setFrom('donovan.tchume@gmail.com')
+                ->setFrom('noreply@gmail.com')
                 // On attribue le destinataire
                 ->setTo('donovan.tchume@gmail.com')
                 // On crée le texte avec la vue
@@ -39,7 +39,7 @@ class ContactController extends AbstractController
 
             $mailer->send($message);
             // Ici nous enverrons l'e-mail
-            $this->addFlash('message', 'Votre message a été transmis, nous vous répondrons dans les meilleurs délais.'); // Permet un message flash de renvoi
+
         }
 
         return $this->render('contact/index.html.twig', ['form' => $form->createView()]);

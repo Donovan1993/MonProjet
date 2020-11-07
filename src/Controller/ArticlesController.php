@@ -5,9 +5,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Articles;
+use App\Entity\ArticlesSearch;
 use App\Entity\Users;
 use App\Entity\Commentaires;
 use App\Form\AjoutArticleType;
+use App\Form\ArticlesSearchType;
 use App\Form\CommentairesType;
 use App\Repository\ArticlesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,8 +47,11 @@ class ArticlesController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator) // Nous ajoutons les paramètres requis
     {
-        // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
-        $donnees = $this->getDoctrine()->getRepository(Articles::class)->findAll();
+        // findBy  permet de récupérer les données avec critères de filtre et  tri
+        $donnees = $this->getDoctrine()->getRepository(Articles::class)->findBy(['actif' => 1]);
+        //pour creer entité pour faire les recherches filtres
+        $search = new ArticlesSearch();
+        $form = $this->createForm(ArticlesSearchType::class, $search);
 
         $articles = $paginator->paginate(
 
@@ -57,6 +62,7 @@ class ArticlesController extends AbstractController
 
         return $this->render('articles/index.html.twig', [
             'articles' => $articles,
+            'form' => $form->createView()
 
         ]);
     }
@@ -88,7 +94,7 @@ class ArticlesController extends AbstractController
 
         // Nous vérifions si le formulaire a été soumis et si les données sont valides
         if ($form->isSubmitted() && $form->isValid()) {
-            echo "<h2> Votre commentaire a été transmis, il sera visible aprés validation 💌!</h2>";
+            $this->addFlash('message', 'Votre message a été transmis, nous vous répondrons dans les meilleurs délais.'); // Permet un me
             // Hydrate notre commentaire avec l'article
             $commentaire->setArticles($article);
 
@@ -103,6 +109,7 @@ class ArticlesController extends AbstractController
             // On écrit en base de données
             $doctrine->flush();
         }
+
         // Si l'article existe nous envoyons les données à la vue
         return $this->render('articles/article.html.twig', [
             'form' => $form->createView(),
@@ -143,7 +150,7 @@ class ArticlesController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            $message = $translator->trans('Article published successfully');
+            $message = $translator->trans('Article bientot publié ');
 
             $this->addFlash('message', $message);
             return $this->redirectToRoute('actualites_articles');

@@ -7,55 +7,112 @@
 			{% endblock %}
 		</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> {% block stylesheets %}{% endblock %}
+		   <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+       <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 		</head>
-		<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="">MOGO</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="">Acceuil <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">Nos Logements</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Le Magazine </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Qui sommes nous ?</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">Nous Contacter</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    	
+	
+	
+	<nav class="navbar navbar-expand navbar-light">
+					 
+                   <a class="nav-link" href="{{ path('acceuil_index') }}" > <img  class="prologo" src="{{asset('images/mogolast.png')}}" > </a>
+           
+						
+						
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav ml-auto py-4 py-md-0">
+							
+				<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+
+        
+								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+									<a class="nav-link" href="{{ path('acceuil_index') }}" >Accueil</a>
+								</li>
+                
+								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+									<a class="nav-link" href="{{ path('logement_index') }}">Nos Logements</a>
+								</li>
+				
+								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+									<a class="nav-link" href="{{ path('actualites_articles') }}">Newsletter</a>
+								</li>
+								<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+									<a class="nav-link" href="{{ path('contact_index') }}">Contact</a>
+								</li>
+							</li>		
+                 <li class="nav-item dropdown">
+        <div class="nav-link dropdown-toggle text-body" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Espace Membres
-        </a>
+        </div>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">a trouver</a>
-          <a class="dropdown-item" href="">Connexion</a>
-          <a class="dropdown-item" href="#">Inscription</a>
+          <a class="dropdown-item bg-secondary" href="{{ path('app_login') }}"> Connexion</a>
+          <a class="dropdown-item " href="{{ path('user_registration') }}">Inscription</a>
+           <a class="dropdown-item " href="{{ path('app_logout') }}">Deconnexion</a>
+		 
         </div>
       </li>
-    </ul>
-    {% if app.user %}
-    <ul class="navbar-nav">
-       <li class="nav-item">
-       <a class="nav-link" href="{{ path('logout') }}">deconnexion </a>
-       </li>
-    </ul>
-    {% endif %}
-  </div>
-</nav>
-			{% block body %}{% endblock %}
+                		
+									</div>
+                  
+								</li>
+
+							</ul>
+						</div>
+						
+					</nav>		
+
+			{% block body %}
+      
+      {% endblock %}
 			{% block javascripts %}
 				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+				 <script src="js/styles.js"></script>
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+			 <script src="js/styles.js"></script>
 			{% endblock %}
 		</body>
-	</html>
+
+
+<footer class="footer" style="background-color:white;">
+
+    <div class="container">
+	
+        <div class="row ">
+            <div class="col-lg-2 col-md-5 mb-4 mb-md-4 ftco-animate">
+               
+            </div>
+            <div class="col-lg col-md-6 mb-5 mb-md-5 ftco-animate">
+			 <div class="ftco-footer-widget">
+                    <img src="{{asset('images/mogolast.png')}}" class="prologo" >
+                </div>
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="location" href="https://goo.gl/maps/GF79o7KHFbsmXMW69"><a href="https://www.google.com/search?q=10+avenue+de+la+porte+de+vincennes&oq=10+&aqs=chrome.1.69i57j35i39j46j0l3j69i60l2.2047j0j7&sourceid=chrome&ie=UTF-8#">10
+                            avenue de la Porte de Vincennes, 75012, PARIS, FRANCE</a>
+                    </h2>
+                    <h2><a href="tel://1234567920">0109497832</a> </h2>
+                <p><a href="{{ path('acceuil_index') }}">Acceuil<a/></p>
+                <p><a href="{{ path('logement_index') }}">Tous nos Logements<a/></p>
+                <p><a href="">Newsletter<a/></p>
+                <p><a href="{{ path('contact_index') }}">Nous contacter<a/></p>
+                   <p> <a href="{{ path('mentions_index') }}" style="margin-top: 5em"> mentions legales</a> |
+                   <a href="{{ path('rgpd_index') }}" style="margin-top: 5em"> RGPD</a> </p>
+
+                </div>
+            </div>
+           
+        </div>
+            </div>
+        </div>
+    </div>
+</footer>

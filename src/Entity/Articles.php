@@ -110,6 +110,11 @@ class Articles
      */
     private $commentaires;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $actif = false;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -300,11 +305,21 @@ class Articles
     {
         if ($this->commentaires->contains($commentaire)) {
             $this->commentaires->removeElement($commentaire);
-            // set the owning side to null (unless already changed)
             if ($commentaire->getArticles() === $this) {
                 $commentaire->setArticles(null);
             }
         }
+
+        return $this;
+    }
+    public function getActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
 
         return $this;
     }

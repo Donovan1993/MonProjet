@@ -1,32 +1,76 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}Hello LogementController!{% endblock %}
+{% block title %}🏡MOGO: Details du logement{% endblock %}
 
 {% block body %}
-<div class="jumbotron">
-<div class="container mt-4">
- <div class="row">
- <div class="col-md-8">
 
-  </div>
-    <div class="col-md-4">
-    <h1>{{ logement.title }}</h1>
-    <h2>{{ logement.rooms }} pièces - {{ logement.surface }} m2 </h2>
-    <div class="text-primary" style="font-size: 4rem;font-weight: bold;">{{ logement.price }} € </div>
-    <a href="" class="btn btn-primary">Contacter l'agence </a>
-    </div>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> {% block stylesheets %}{% endblock %}
+		   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
 
-  </div>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  
+   
+		<body>
+    <span class="border border-warning">
+    <div class="mx-auto">
+ <h2 class="typo">Description du logement :</h2>
+ <div class="container">
+<h2> {{ logement.description }} </h2>
  </div>
-
 </div>
- 
- <p> 
- {{ logement.description }} 
- </p>
-<div class="row">
-<div class="col-md-8">
-<h2>Caracteristiques</h2>
+    
+    </span>
+<div id="demo" class="carousel slide" data-ride="carousel">
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  <div class="carousel-inner">
+  
+    <div class="carousel-item active" >
+      {% if logement.filename %}
+<img src="/images/logements/{{logement.filename}} " alt="card-img-top" style="width:100%; height:auto">
+{% else %}
+<img src="/images/logements/carouselbiens.jpeg" alt="card-img-top" style="width:100%; height:auto">
+{% endif %}
+
+      <div class="carousel-caption">
+       <h4><a href="{{ path('logement_show', {id: logement.id, slug: logement.slug}) }}" >{{logement.title}} </a> </h4>
+        <h2>{{logement.price}} €</h2>
+        <p class="card-text">{{logement.city}} ({{logement.postalCode}}) </p>
+      </div>   
+    </div>
+    
+    <div class="carousel-item">
+     {% if logement.filename %}
+<img src="/images/logements/{{logement.filename}} " alt="card-img-top" style="width:100%; height:auto">
+{% else %}
+<img src="/images/logements/carouselbiens.jpeg" alt="card-img-top" style="width:100%; height:auto">
+{% endif %}
+      <div class="carousel-caption">
+      
+        <h4><a href="{{ path('logement_show', {id: logement.id, slug: logement.slug}) }}" >{{logement.title}} </a> </h4>
+       <h2>{{logement.price}} €</h2>
+         <p class="card-text">{{logement.city}} ({{logement.postalCode}}) </p>
+      </div>   
+    </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+ <br>
+ <div class="container">
+
+
+<li class="list-group-item list-group-item-primary"><h2 class="typo">Caracteristiques:</h2></li>
 <table class="table table-striped">
 <tr>
 <td> Surface habitable</td>
@@ -50,11 +94,60 @@
 </tr>
 </table>
 
-  </div>
+  
 
-  </div>
+ </div>
 
+    
+
+
+
+{% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+ {% endfor %}
+<div class="container">
+<li class="list-group-item list-group-item-primary"><h2 class="typo">CONTACT:</h2></li>
+{{form_start(form)}}
+
+
+<div class="row">
+
+<div class="col">{{form_start(form.Nom)}}</div>
+</div>
+<div class="row">
+<div class="col">{{form_start(form.Email)}}</div>
+<div class="col">{{form_start(form.Telephone)}}</div>
+</div>
+
+{{form_rest(form)}}
+{{form_end(form)}}
+</div>
+</div>
+</form>
+   	 
 
 </div>
-<h2> Specificités </h2>
+</div>
+</div>
+  </div>
+ </div>
+
+</div>
+ 
+    </div>
+</div>
+    	
+		</body>
 {% endblock %}
+{% block javascripts %}
+				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+				 <script src="js/styles.js"></script>
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+			 <script src="js/styles.js"></script>
+        <script src="css/styles.css"></script>
+			{% endblock %}

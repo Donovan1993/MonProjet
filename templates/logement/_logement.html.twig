@@ -1,10 +1,22 @@
 <div class="card md-4">
-<div class="card-body">
-<h5 class="card-title">
-<a href="{{path('logement_show', {slug : logement.slug, id: logement.id})}}">{{logement.title}} </a>
+{% if logement.filename %}
+<img src="/images/logements/{{logement.filename}} " alt="card-img-top" style="width:100%; height:auto">
+{% else %}
+<img src="images/logements/salon_magique.jpg" alt="card-img-top" style="width:100%;">
+{% endif %}
+<div class="card-body" >
+<h5 class="card-title" style="text-align:center;">
+<a href="{{path('logement_show', {slug : logement.slug, id: logement.id})}}" style="text-align:center;color:#2f435e;"><strong>{{logement.title}} </strong> </a>
 </h5>
-<p class="card-text">{{logement.surface }} m2 - {{logement.city}} {{logement.postalCode}} </p>
-<div class="text-primary" style="font-size:2rem;font-weight:bold;">
-{{logement.price}}
+<p class="card-text" style="text-align:center;" >{{logement.surface }} m2 - {{logement.city}} {{logement.postalCode}} </p>
+
+<div class="container" >
+<h1 class="ml15">
+  <span class="typo"> {{logement.price}} € </span>
+</h1>
 </div>
+
+
  </div>
+
+
